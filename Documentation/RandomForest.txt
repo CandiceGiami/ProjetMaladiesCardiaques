@@ -1,0 +1,54 @@
+https://france.devoteam.com/paroles-dexperts/algorithme-n2-comprendre-comment-fonctionne-un-random-forest-en-5-min/
+
+
+
+L'algorithme de **Random Forest** est une technique d'apprentissage automatique utilisée pour les tâches de classification et de régression. Voici une explication simple et accessible :  
+
+---
+
+### **1. Concept de base :**
+Un **Random Forest** (forêt aléatoire) est composé de plusieurs **arbres de décision**. L'idée est que chaque arbre donne sa "proposition" et la forêt combine ces propositions pour obtenir un résultat final plus robuste et précis.
+
+---
+
+### **2. Étapes principales :**
+
+1. **Création de plusieurs arbres de décision :**  
+   - On génère plusieurs arbres de décision indépendants.
+   - Chaque arbre est entraîné sur un **échantillon aléatoire** du jeu de données (technique appelée "bootstrap").
+   - Pour chaque arbre, on sélectionne un **sous-ensemble aléatoire de caractéristiques** (colonnes) à chaque division du nœud. Cela réduit la corrélation entre les arbres.
+
+2. **Prédiction pour un nouvel exemple :**
+   - **En classification :** Chaque arbre vote pour une classe. La classe finale est celle qui a obtenu le plus de votes (majorité).
+   - **En régression :** Chaque arbre donne une valeur numérique. La prédiction finale est la moyenne des prédictions des arbres.
+
+---
+
+### **3. Pourquoi "Random" ?**
+- **Données aléatoires :** Chaque arbre est formé sur un échantillon aléatoire des données.
+- **Caractéristiques aléatoires :** À chaque étape de division dans un arbre, seules certaines caractéristiques sont considérées.
+
+---
+
+### **4. Avantages :**
+- **Robustesse :** Combine les forces de nombreux arbres, donc moins sensible aux données aberrantes ou au surapprentissage.
+- **Performance :** Souvent très efficace pour des jeux de données complexes.
+- **Facilité d'utilisation :** Peu de réglages nécessaires pour obtenir de bons résultats.
+
+---
+
+### **5. Limites :**
+- Peut être lent à l'entraînement si le nombre d'arbres ou de données est très grand.
+- Moins interprétable qu'un seul arbre de décision.
+
+---
+
+### **Une métaphore :**
+Imagine que tu demandes à 100 amis de deviner le poids d'un sac de pommes :
+- Chaque ami fait sa propre estimation.
+- Ensuite, tu prends la moyenne (ou le vote majoritaire).  
+En combinant leurs idées, tu obtiens une meilleure estimation que si tu demandais à une seule personne.
+
+---
+
+Dis-moi si tu veux que je développe une partie en particulier ou si tu veux voir un exemple concret ! 😊
