@@ -50,5 +50,3 @@ Imagine que tu demandes à 100 amis de deviner le poids d'un sac de pommes :
 En combinant leurs idées, tu obtiens une meilleure estimation que si tu demandais à une seule personne.
 
 ---
-
-Dis-moi si tu veux que je développe une partie en particulier ou si tu veux voir un exemple concret ! 😊
