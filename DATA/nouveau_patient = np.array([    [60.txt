@@ -1,0 +1,77 @@
+nouveau_patient = np.array([    [60, 1, 1, 140, 0, 2.5, 0, 0, 1, 0, 1, 0]]) 
+
+print(nouveau_patient.shape)
+
+prediction = knn.predict(nouveau_patient)
+
+if prediction[0] == 1:
+    print("Le modèle prédit que le patient est malade.")
+else:
+    print("Le modèle prédit que le patient est en bonne santé.")
+
+
+
+
+
+from sklearn.feature_selection import SelectKBest, f_classif
+
+X = df.drop(columns=["Maladie_cardiaque"])  # Features
+y = df["Maladie_cardiaque"]  # Cible
+
+# Sélection des K meilleures variables
+selector = SelectKBest(score_func=f_classif, k=12)  # Change k selon besoin
+X_selected = selector.fit_transform(X, y)
+
+# Voir les variables sélectionnées
+selected_features = X.columns[selector.get_support()]
+print("Meilleures variables :", selected_features)
+
+
+
+
+probabilites = knn.predict_proba(nouveau_patient)
+
+print(f"Probabilité d'être sain : {probabilites[0][0]*100:.2f}%")
+print(f"Probabilité d'être malade : {probabilites[0][1]*100:.2f}%")
+
+
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.feature_selection import mutual_info_classif
+
+X = df.drop(columns=["Maladie_cardiaque"])  # Features
+Y = df["Maladie_cardiaque"]
+features = [
+    "Âge", 
+    "Sexe", 
+    "Tension_aurepos", 
+    "Cholestérol", 
+    "Glycémieà_jeun", 
+    "Fréquence_cardiaque_max", 
+    "Angine_d_effort", 
+    "Dépression_ST", 
+    "Type_de_douleur_thoracique_ASY", 
+    "Type_de_douleur_thoracique_ATA", 
+    "Type_de_douleur_thoracique_NAP", 
+    "Type_de_douleur_thoracique_TA", 
+    "ECG_au_repos_LVH", 
+    "ECG_au_repos_Normal", 
+    "ECG_au_repos_ST", 
+    "Pente_ST_Down", 
+    "Pente_ST_Flat", 
+    "Pente_ST_Up"
+]
+importances = mutual_info_classif(X, Y)
+feature_importance = pd.Series(importances, index=features).sort_values(ascending=False)
+
+# Tracer un graphique de l'importance des variables
+plt.figure(figsize=(10, 6))
+feature_importance.plot(kind='bar', color='skyblue')
+plt.title("Importance des variables pour la prédiction de la maladie cardiaque")
+plt.ylabel("Score d'importance")
+plt.xlabel("Variables")
+plt.xticks(rotation=45, ha='right')
+plt.show()
