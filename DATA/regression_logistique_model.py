@@ -56,17 +56,4 @@ def predict_with_regression(model, X_new):
     
     return predictions
 
-# Exemple d'utilisation
 
-# Générer des données fictives pour tester
-X = np.random.rand(100, 16)  # 100 échantillons, 16 features
-Y = np.random.randint(0, 2, size=100)  # 100 labels (0 ou 1)
-
-# Entraînement du modèle
-best_model, scaler = train_regression_model(X, Y)
-
-# Faire une prédiction avec de nouvelles données (X_new)
-X_new = np.random.rand(5, 16)  # 5 échantillons, 16 features
-predictions = predict_with_regression(best_model, scaler, X_new)
-
-print("Prédictions : ", predictions)
