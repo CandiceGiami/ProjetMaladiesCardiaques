@@ -5,11 +5,17 @@ import numpy as np
 import os
 import sys
 
+# Chemin absolu du dossier racine
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+# Ajouter le dossier racine au PATH pour importer algo_python
+sys.path.append(base_dir)
+
 from algo_python.random_forest_model import train_random_forest_model
 from algo_python.knn_model import train_knn_model
 from algo_python.regression_logistique_model import train_regression_model
 
-# Chemin absolu du dossier racine (un niveau au-dessus de templates)
+# Chemin absolu du dossier racine
 base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 class HeartDiseaseApp:
@@ -37,9 +43,20 @@ class HeartDiseaseApp:
 
     def load_and_prepare_data(self):
         try:
-            file_path = os.path.join(base_dir, "donnée_malades_cardiaques.csv")
-            df = pd.read_csv(file_path, index_col=0)
-            df = df.drop(columns=["Unnamed: 0"])
+            file_path = os.path.join(base_dir, "données", "donnée_malades_cardiaques.csv")
+
+            # Debug : voir le chemin dans la console si besoin
+            print("Chargement depuis :", file_path)
+
+            try:
+                df = pd.read_csv(file_path)
+                if "Unnamed: 0" in df.columns:
+                    df = df.drop(columns=["Unnamed: 0"])
+            except Exception as e:
+                messagebox.showerror("Erreur", f"Erreur de chargement des données : {e}")
+                self.root.destroy()
+                return
+
         except Exception as e:
             messagebox.showerror("Erreur", f"Erreur de chargement des données : {e}")
             self.root.destroy()
@@ -111,7 +128,7 @@ class HeartDiseaseApp:
 
             # Affichage
             if prediction == 1:
-                messagebox.showwarning("Risque détecté", f"⚠️ Risque de maladie cardiaque\nConfiance : {confidence:.2f}")
+                messagebox.showwarning("Risque détecté", f" Risque de maladie cardiaque\nConfiance : {confidence:.2f}")
             else:
                 messagebox.showinfo("Aucun risque", f"Aucun risque détecté\nConfiance : {confidence:.2f}")
 
